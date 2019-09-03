@@ -7,7 +7,7 @@
   <a href="#contact">Contact</a>
   <a href="#about">About</a>
   {% if user.is_authenticated %}
-    <a href="#news"><i class="fa fa-fw fa-users"></i> Users</a>
+    <a href="{% url 'users:users_index' %}"><i class="fa fa-fw fa-users"></i> Users</a>
     <a href="{% url 'logout' %}"><i class="fa fa-fw fa-sign-out"></i> Log Out</a>
   {% else %}
     <a href="{% url 'login' %}"><i class="fa fa-fw fa-sign-in"></i> Log In</a>

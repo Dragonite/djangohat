@@ -22,4 +22,4 @@ def create_event(request):
                 send_embed(request)
 
     c = {'form': form }
-    return render(request, "index.html", c)
+    return render(request, "create_event.html", c)

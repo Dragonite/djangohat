@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Events
+{% endblock %}
+
+{% block page_header %}Create Event{% endblock %}
+
+{% block body %}
+  <div class="item-background">
+    <form method="POST">
+      {% csrf_token %}
+      {{ form }}
+      {#    <input id="datetimepicker" type="text" name="test" autocomplete="off">#}
+      <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal">
+        Create Event
+      </button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+           aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Create Event</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Are you sure you want to create this event? Doing so will cause a server-wide notification on Discord.
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button class="btn btn-primary" type="submit">Create Event</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    $('#datetimepicker').datetimepicker({
+      format: 'Y-m-d H:00'
+    });
+  </script>
+{% endblock %}

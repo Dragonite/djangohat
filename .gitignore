@@ -1,0 +1,12 @@
+# PyCache
+*.pyc
+
+# IDE Files
+.idea/
+.vscode/
+
+# Misc
+*console.log
+*.DS_Store
+venv/
+*settings.py

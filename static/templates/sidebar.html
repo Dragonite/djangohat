@@ -1,0 +1,10 @@
+{% load static %}
+
+<div class="sidebar">
+  <div style="text-align: center" class="mt-3 mb-3" id="logo">
+    <img src="{% static "whitehat.png" %}" width="50%"></div>
+  <a href="{% url "events:create_event" %}"><i class="fa fa-fw fa-calendar"></i> Events</a>
+  <a href="#news">News</a>
+  <a href="#contact">Contact</a>
+  <a href="#about">About</a>
+</div>

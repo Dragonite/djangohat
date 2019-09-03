@@ -7,7 +7,11 @@
 {% block body %}
   <form method="POST">
     {% csrf_token %}
-    <input type="text" name="test">
+    <input id="datetimepicker" type="text" name="test" autocomplete="off">
     <input type="submit" name="submit">
   </form>
+
+  <script>
+    $('#datetimepicker').datetimepicker();
+  </script>
 {% endblock %}

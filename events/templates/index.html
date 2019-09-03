@@ -5,13 +5,17 @@
 {% endblock %}
 
 {% block body %}
+
   <form method="POST">
     {% csrf_token %}
-    <input id="datetimepicker" type="text" name="test" autocomplete="off">
+    {{ form }}
+    {#    <input id="datetimepicker" type="text" name="test" autocomplete="off">#}
     <input type="submit" name="submit">
   </form>
 
   <script>
-    $('#datetimepicker').datetimepicker();
+    $('#datetimepicker').datetimepicker({
+      format: 'Y-m-d H:00'
+    });
   </script>
 {% endblock %}

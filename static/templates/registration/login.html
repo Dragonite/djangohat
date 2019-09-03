@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load css %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+  <h2>Login</h2>
+  <div style="background-color: #f1f1f1; border-radius: 10px; margin-top: 10%">
+    <div style="padding: 50px">
+    <form method="post">
+      {% csrf_token %}
+      {% for field in form %}
+        {{ field.label }}
+        {{ field|addbootstrapstyle }}
+      {% endfor %}
+      <button class="btn btn-primary mt-3" type="submit">Login</button>
+    </form>
+    </div>
+  </div>
+
+{% endblock %}

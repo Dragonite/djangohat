@@ -8,4 +8,4 @@ Djangohat is a Webhook based management system for [Whitehat](https://github.com
 
 ## License
 
-This project is licensed under the [MIT License]().
+This project is licensed under the [MIT License](https://github.com/Dragonite/djangohat/blob/master/LICENSE).

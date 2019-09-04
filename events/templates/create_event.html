@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-  Events
+  Create Event
 {% endblock %}
 
 {% block page_header %}Create Event{% endblock %}
@@ -10,7 +10,10 @@
   <div class="item-background">
     <form method="POST">
       {% csrf_token %}
-      {{ form }}
+      {% for field in form %}
+        <div class="mb-2">{{ field.label }}</div>
+        <div class="mb-2">{{ field }}</div>
+      {% endfor %}
       {#    <input id="datetimepicker" type="text" name="test" autocomplete="off">#}
       <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal">
         Create Event

@@ -24,11 +24,27 @@
     <button class="tablinks" onclick="openCity(event, 'previous')">Previous Events</button>
   </div>
   <div id="current" class="tabcontent mb-3">
-    <h3>London</h3>
-    <p>London is the capital city of England.</p>
-    {% for event in current_events %}
-      {{ event.time }}<br>
-    {% endfor %}
+    <div class="card-body">
+      {% if not current_events %}
+        <div class="alert alert-info mt-3">
+          There are no upcoming events.
+        </div>
+      {% endif %}
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between">
+        {% for event in current_events %}
+          <div class="card mb-2 bg-light" style="width: 100%">
+            <div class="card-body">
+              <div class="mb-2">
+                <strong>{{ event.title }}</strong>
+              </div>
+              <i class="fa fa-fw fa-map-marker"></i> {{ event.location }}<br>
+              <i class="fa fa-fw fa-calendar"></i> {{ event.time }}<br>
+              <i class="fa fa-fw fa-info-circle"></i> {{ event.info }}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
   </div>
 
   <div id="previous" class="tabcontent mb-3">

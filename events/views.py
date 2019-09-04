@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from dhooks import Webhook, Embed
 from django.http import HttpResponse
 from events.forms import CreateEventForm
@@ -31,3 +31,11 @@ def create_event(request):
             messages.error(request, 'Invalid Parameters for Event!')
     c = {'form': form }
     return render(request, "create_event.html", c)
+
+
+@staff_member_required
+def delete_event(request, event_id):
+    event = get_object_or_404(Event, pk=event_id)
+    event.delete()
+    messages.success(request, 'Event successfully deleted!')
+    return redirect("events:event_index")

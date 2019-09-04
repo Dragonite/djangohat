@@ -36,6 +36,37 @@
             <div class="card-body">
               <div class="mb-2">
                 <strong>{{ event.title }}</strong>
+                {% if user.is_staff %}
+                  <button type="button" class="btn btn-danger float-right" data-toggle="modal"
+                          data-target="#modal_event_{{ event.id }}">
+                    <i class="fa fa-trash"></i>
+                  </button>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="modal_event_{{ event.id }}" tabindex="-1" role="dialog"
+                       aria-labelledby="modal_event_{{ event.id }}Label"
+                       aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="modal_event_{{ event.id }}Label">Delete Event</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          Are you sure you want to delete this event? Doing so will delete the event from the database,
+                          however will not delete the event from the Discord channel.
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <a href="{% url 'events:delete_event' event.id %}" class="float-right btn btn-danger"
+                             style="color: #FFF">Delete Event</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {% endif %}
               </div>
               <i class="fa fa-fw fa-map-marker"></i> {{ event.location }}<br>
               <i class="fa fa-fw fa-calendar"></i> {{ event.time }}<br>
@@ -48,11 +79,58 @@
   </div>
 
   <div id="previous" class="tabcontent mb-3">
-    <h3>Paris</h3>
-    <p>Paris is the capital of France.</p>
-    {% for event in previous_events %}
-      {{ event.time }}<br>
-    {% endfor %}
+    <div class="card-body">
+      {% if not previous_events %}
+        <div class="alert alert-info mt-3">
+          There are no previous events.
+        </div>
+      {% endif %}
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between">
+        {% for event in previous_events %}
+          <div class="card mb-2 bg-light" style="width: 100%">
+            <div class="card-body">
+              <div class="mb-2">
+                <strong>{{ event.title }}</strong>
+                {% if user.is_staff %}
+                  <button type="button" class="btn btn-danger float-right" data-toggle="modal"
+                          data-target="#modal_event_{{ event.id }}">
+                    <i class="fa fa-trash"></i>
+                  </button>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="modal_event_{{ event.id }}" tabindex="-1" role="dialog"
+                       aria-labelledby="modal_event_{{ event.id }}Label"
+                       aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="modal_event_{{ event.id }}Label">Delete Event</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          Are you sure you want to delete this event? Doing so will delete the event from the database,
+                          however will not delete the event from the Discord channel.
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <a href="{% url 'events:delete_event' event.id %}" class="float-right btn btn-danger"
+                             style="color: #FFF">Delete Event</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {% endif %}
+              </div>
+              <i class="fa fa-fw fa-map-marker"></i> {{ event.location }}<br>
+              <i class="fa fa-fw fa-calendar"></i> {{ event.time }}<br>
+              <i class="fa fa-fw fa-info-circle"></i> {{ event.info }}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
   </div>
 
   <script src="{% static "js/tabs.js" %}"></script>

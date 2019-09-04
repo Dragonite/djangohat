@@ -11,8 +11,8 @@ from django.contrib.admin.views.decorators import staff_member_required
 
 
 def index(request):
-    current_events = Event.objects.filter(time__gte=timezone.now())
-    previous_events = Event.objects.filter(time__lt=timezone.now())
+    current_events = Event.objects.filter(time__gte=timezone.now()).order_by('time')
+    previous_events = Event.objects.filter(time__lt=timezone.now()).order_by('time')
     c = {'current_events': current_events, 'previous_events': previous_events}
     return render(request, "index.html", c)
 

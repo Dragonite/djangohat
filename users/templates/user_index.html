@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+  Registered Users
+{% endblock %}
+
+{% block page_header %}
+  Registered Users
+{% endblock %}
+
+{% block body %}
+  <table class="table table-bordered" style="text-align: center">
+    <thead class="thead-light">
+    <tr>
+      <th scope="col">Discord Tag</th>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">HackTheBox</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for user in users %}
+      <tr>
+        <th scope="row">{{ user.discord_tag }}</th>
+        <td>{{ user.full_name }}</td>
+        <td>{{ user.description }}</td>
+        {% if user.get_htb_url %}
+          <td><a href="{{ user.get_htb_url }}">Link to Profile</a></td>
+        {% else %}
+          <td></td>
+        {% endif %}
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

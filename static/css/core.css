@@ -61,6 +61,10 @@ div.content {
   .sidebar div img {
     width: 50%
   }
+
+  #credits {
+    display: none
+  }
 }
 
 /* On screens that are less than 400px, display the bar vertically, instead of horizontally */
@@ -73,6 +77,10 @@ div.content {
   #logo {
     display: none
   }
+
+  #credits {
+    display: none
+  }
 }
 
 .form-control:focus {
@@ -83,5 +91,17 @@ div.content {
 .item-background {
   background-color: #f1f1f1;
   border-radius: 10px;
-  padding: 50px
+  padding: 30px
+}
+
+.non-formatted-link {
+  text-decoration: none !important;
+  color: inherit !important;
+}
+
+#credits {
+  position: fixed;
+  bottom: 10px;
+  width: 200px;
+  text-align: center;
 }

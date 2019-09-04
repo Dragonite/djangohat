@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+  Events
+{% endblock %}
+
+{% block head %}
+  <link href="{% static "css/tabs.css" %}" rel="stylesheet">
+{% endblock %}
+
+{% block page_header %}Events{% endblock %}
+
+{% block body %}
+  <div class="tab">
+    <button class="tablinks" onclick="openCity(event, 'current')" id="default">Current Events</button>
+    <button class="tablinks" onclick="openCity(event, 'previous')">Previous Events</button>
+  </div>
+  <div id="current" class="tabcontent">
+    <h3>London</h3>
+    <p>London is the capital city of England.</p>
+  </div>
+
+  <div id="previous" class="tabcontent">
+    <h3>Paris</h3>
+    <p>Paris is the capital of France.</p>
+  </div>
+
+  <script src="{% static "js/tabs.js" %}"></script>
+{% endblock %}

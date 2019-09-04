@@ -1,5 +1,6 @@
 from django.db import models
 
+htb_url_base = 'https://www.hackthebox.eu/profile/'
 
 class Users(models.Model):
     discord_id = models.CharField(primary_key=True, max_length=255)
@@ -12,3 +13,9 @@ class Users(models.Model):
     class Meta:
         managed = False
         db_table = 'users'
+
+    def get_htb_url(self):
+        if self.htb:
+            return htb_url_base + str(self.htb)
+        else:
+            return None

@@ -14,7 +14,7 @@ class Users(models.Model):
 
     def __str__(self):
         return self.discord_tag
-    
+
     def get_htb_url(self):
         if self.htb:
             return htb_url_base + str(self.htb)

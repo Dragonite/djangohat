@@ -26,6 +26,8 @@ DISCORD_WEBHOOK = webhook
 
 DISCORD_BOT_TOKEN = bot_token
 
+DISCORD_BOT_PREFIX = '!'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 

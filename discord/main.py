@@ -1,4 +1,5 @@
 import discord
+from discord.ext import commands
 from django.conf import settings
 from utils.lib import *
 import os
@@ -10,32 +11,20 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "whitehat.settings")
 
 prefix = settings.DISCORD_BOT_PREFIX
 
-client = discord.Client()
+bot = commands.Bot(command_prefix=settings.DISCORD_BOT_PREFIX)
 
 
-@client.event
+@bot.event
 async def on_ready():
     activity = discord.Activity(name="you hack ethically!", type=discord.ActivityType.watching)
-    await client.change_presence(activity=activity)
+    await bot.change_presence(activity=activity)
     print("Bot connected!")
 
 
-@client.event
-async def on_message(message):
-    # Prevent infinite bot loop
-    checkBotLoop(message, client)
-
-    # Get parameters
-
-    params = message.content.split()
-
-    if len(params) == 0:
-        return
-    else:
-        params[0] = params[0][1:]
-
-    if params[0] == 'test':
-        await message.channel.send("hello")
+@bot.command()
+async def register(ctx, *args):
+    for arg in args:
+        await ctx.send(arg)
 
 
-client.run(settings.DISCORD_BOT_TOKEN)
+bot.run(settings.DISCORD_BOT_TOKEN)

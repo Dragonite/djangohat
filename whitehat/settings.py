@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-from .settings_prod import secret_key, webhook, databases
+from .settings_prod import secret_key, webhook, databases, bot_token
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -23,6 +23,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = secret_key
 
 DISCORD_WEBHOOK = webhook
+
+DISCORD_BOT_TOKEN = bot_token
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

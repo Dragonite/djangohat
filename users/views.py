@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from django.contrib.admin.views.decorators import staff_member_required
 from .models import Users
 
@@ -9,3 +11,19 @@ def index(request):
     users = Users.objects.all()
     c = {'users': users }
     return render(request, "user_index.html", c)
+
+
+@login_required
+def profile(request):
+    profile = get_object_or_404(Users, user=request.user)
+    c = {'profile': profile}
+    return render(request, "user_profile.html", c)
+
+
+@login_required
+def confirm_discord(request):
+
+    return JsonResponse({
+            "success": True,
+            "message": "Your playlist was successfully refreshed!"
+        })

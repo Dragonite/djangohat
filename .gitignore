@@ -9,4 +9,5 @@
 *console.log
 *.DS_Store
 venv/
+*.sql
 *settings_prod.py

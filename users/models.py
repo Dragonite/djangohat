@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import uuid
 
 htb_url_base = 'https://www.hackthebox.eu/profile/'
 
@@ -11,6 +12,8 @@ class Users(models.Model):
     description = models.TextField(blank=True, null=True)
     htb = models.CharField(max_length=255, blank=True, null=True)
     discord_tag = models.CharField(max_length=255, blank=True, null=True)
+    site_verified = models.BooleanField(default=False)
+    site_key = models.CharField(max_length=32, blank=True, unique=True, default=uuid.uuid4().hex)
 
     def __str__(self):
         return self.discord_tag

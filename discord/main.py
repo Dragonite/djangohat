@@ -22,18 +22,6 @@ async def on_ready():
     await bot.change_presence(activity=activity)
     print("Bot connected!")
 
-@bot.command()
-async def key(ctx, arg=None):
-    if ctx.channel.type == discord.ChannelType.private and ctx.author != bot.user:
-        profile = Users.objects.get(discord_id=ctx.message.author.id)
-        if profile:
-            if profile.site_key == arg:
-                profile.site_verified = True
-                profile.save()
-                print(profile.site_verified)
-                print("saved")
-        await ctx.send(arg)
-
 # @bot.event
 # async def on_message(message):
 #     if message.channel.type == discord.ChannelType.private and message.author != bot.user:
@@ -53,5 +41,11 @@ async def register(ctx, *args):
     for arg in args:
         await ctx.send(arg)
 
+initial_extensions = ['cogs.link']
 
-bot.run(settings.DISCORD_BOT_TOKEN)
+if __name__ == '__main__':
+    for extension in initial_extensions:
+        bot.load_extension(extension)
+
+
+bot.run(settings.DISCORD_BOT_TOKEN, bot=True, reconnect=True)

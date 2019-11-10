@@ -82,14 +82,13 @@
         type: "POST",
         url: "{% url 'users:confirm_discord' %}",
         dataType: "json",
-        data: {
-          "playlist_id": 3
-        },
+        data: {},
         success: function (resp) {
           if (resp.success) {
-            console.log("success")
+            alert("Your Discord Profile was successfully linked to the website.");
+            window.location.reload(false);
           } else {
-            alert(resp.message)
+            alert("The link was unsuccessful. Please confirm you have sent the key using the correct parameters.")
           }
         }
       });

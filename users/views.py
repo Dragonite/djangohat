@@ -15,15 +15,15 @@ def index(request):
 
 @login_required
 def profile(request):
-    profile = get_object_or_404(Users, user=request.user)
-    c = {'profile': profile}
+    user_profile = get_object_or_404(Users, user=request.user)
+    c = {'profile': user_profile}
     return render(request, "user_profile.html", c)
 
 
 @login_required
 def confirm_discord(request):
-
-    return JsonResponse({
-            "success": True,
-            "message": "Your playlist was successfully refreshed!"
-        })
+    user_profile = get_object_or_404(Users, user=request.user)
+    success = False
+    if user_profile.site_verified:
+        success = True
+    return JsonResponse({"success": success})

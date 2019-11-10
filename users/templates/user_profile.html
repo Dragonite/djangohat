@@ -11,30 +11,40 @@
 
 {% block body %}
   <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
-  Launch demo modal
-</button>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#discordModal">
+    Link Discord Account
+  </button>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Link Discord Account</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        {{ profile.site_key }}
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <a class="btn btn-sm btn-primary" style="color: #FFF; cursor: pointer" onclick="return confirmDiscord()">Link Discord</a>
+  <!-- Modal -->
+  <div class="modal fade" id="discordModal" tabindex="-1" role="dialog" aria-labelledby="discordModalLongTitle"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" id="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="discordModalLongTitle">Link Discord Account</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-info">
+            To link your accounts please copy the key below and direct message it to the <strong>White Hat</strong> bot
+            (White Hat#4699) using the <strong>!key</strong> command, then <strong>Confirm Link</strong>.
+          </div>
+          <div style="text-align: center">
+            <code id="siteKey">!key {{ profile.site_key }}</code>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Copy to Clipboard"
+             style="color: #FFF; cursor: pointer" id="copySiteKey"><i class="fa fa-fw fa-copy"></i></button>
+          <a class="btn btn-primary" style="color: #FFF; cursor: pointer" onclick="return confirmDiscord()">Confirm
+            Link</a>
+        </div>
       </div>
     </div>
   </div>
-</div>
   <script>
     function csrfSafeMethod(method) {
       // these HTTP methods do not require CSRF protection
@@ -84,5 +94,15 @@
         }
       });
     }
+
+    document.getElementById("copySiteKey").addEventListener("click", function() {
+      let modalContent = document.getElementById('modal-content');
+      let textarea = document.createElement("input");
+      textarea.value = document.getElementById("siteKey").innerText;
+      modalContent.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      modalContent.removeChild(textarea);
+    });
   </script>
 {% endblock %}

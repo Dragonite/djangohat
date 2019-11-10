@@ -1,9 +1,11 @@
 import discord
-import django
+import logging
 import datetime
 from discord.ext import commands
 from users.models import *
 from utils.lib import *
+
+logger = logging.getLogger()
 
 class LinkCog(commands.Cog):
 
@@ -44,6 +46,7 @@ class LinkCog(commands.Cog):
                         profile.save()
                         await ctx.send(embed=self.key_success())
                         print("{}'s key has successfully been verified.".format(profile.discord_tag))
+                        logger.warning("%s's key has successfully been verified", profile.discord_tag)
                     else:
                         await ctx.send(embed=self.key_failure())
 

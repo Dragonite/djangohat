@@ -4,7 +4,9 @@ import datetime
 from discord.ext import commands
 from discord.ext.commands import has_permissions
 from users.models import *
+from events.models import *
 from utils.lib import *
+from django.conf import settings
 
 logger = logging.getLogger()
 
@@ -20,6 +22,13 @@ class EventCog(commands.Cog):
         embed.set_footer(text="{} {}".format(CLUB_NAME, CURRENT_YEAR), icon_url=self.bot.user.avatar_url)
         return embed
 
+    # Gets the next meeting date and time. By default, the time will be the next Wednesday 3PM
+    # inclusive of the current day, i.e. If it is Wednesday, it will return today's date 3PM.
+    def get_next_default_meeting_time(self, d, weekday):
+        days_ahead = (weekday - d.weekday()) % 7
+        if days_ahead < 0: days_ahead += 7
+        next_date_string = (d + datetime.timedelta(days_ahead)).strftime("%A %-d %B at 3PM")
+        return next_date_string
 
     def custom_event(self, arg_list):
         title = arg_list[0]
@@ -33,14 +42,6 @@ class EventCog(commands.Cog):
         embed.set_footer(text="{} {}".format(CLUB_NAME, CURRENT_YEAR), icon_url=self.bot.user.avatar_url)
         return embed
 
-    # Gets the next meeting date and time. By default, the time will be the next Wednesday 3PM
-    # inclusive of the current day, i.e. If it is Wednesday, it will return today's date 3PM.
-    def get_next_default_meeting_time(self, d, weekday):
-        days_ahead = (weekday - d.weekday()) % 7
-        if days_ahead < 0: days_ahead += 7
-        next_date_string = (d + datetime.timedelta(days_ahead)).strftime("%A %-d %B at 3PM")
-        return next_date_string
-
     @commands.command()
     @has_permissions(administrator=True)
     async def event(self, ctx, *, arg=None):
@@ -50,7 +51,13 @@ class EventCog(commands.Cog):
                 arg_list[0]
                 await ctx.send("arg")
             elif len(arg_list) == 4:
-                await ctx.send(embed=self.custom_event(arg_list))
+                channel = self.bot.get_channel(settings.EVENT_CHANNEL)
+                try:
+                    await channel.send(embed=self.custom_event(arg_list))
+                    await(await channel.send("@everyone")).delete()
+                    await ctx.send("successful event creation")
+                except:
+                    await ctx.send("event could not be created")
             else:
                 await ctx.send(embed=self.event_help())
         else:

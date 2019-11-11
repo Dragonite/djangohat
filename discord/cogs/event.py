@@ -31,6 +31,14 @@ class EventCog(commands.Cog):
 		next_date_string = (d + datetime.timedelta(days_ahead)).strftime("%A %-d %B at 3PM")
 		return next_date_string
 
+	def default_event(self):
+		embed = discord.Embed(title=Event.DEFAULT_TITLE, color=COLOR_INFO, timestamp=datetime.datetime.now())
+		embed.add_field(name="Location", value=Event.DEFAULT_LOCATION, inline=False)
+		embed.add_field(name="Time", value=self.get_next_default_meeting_time(datetime.datetime.now(), WEDNESDAY), inline=False)
+		embed.add_field(name="Information", value=Event.DEFAULT_INFO, inline=False)
+		embed.set_footer(text="{} {}".format(CLUB_NAME, CURRENT_YEAR), icon_url=self.bot.user.avatar_url)
+		return embed
+
 	# Creates a custom event based on argument list, created through the event command.
 	def custom_event(self, arg_list):
 		title = arg_list[0]
@@ -49,11 +57,13 @@ class EventCog(commands.Cog):
 	async def event(self, ctx, *, arg=None):
 		if arg:
 			arg_list = arg.split('\n')
+			channel = self.bot.get_channel(settings.EVENT_CHANNEL)
+			# For !event default command, posts the default event
 			if len(arg_list) == 1 and arg == 'default':
 				arg_list[0]
-				await ctx.send("arg")
+				await ctx.send(embed=self.default_event())
+			# For a custom event
 			elif len(arg_list) == 4:
-				channel = self.bot.get_channel(settings.EVENT_CHANNEL)
 				try:
 					await channel.send(embed=self.custom_event(arg_list))
 					await(await channel.send("@everyone")).delete()

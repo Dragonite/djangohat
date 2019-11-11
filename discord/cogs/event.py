@@ -3,7 +3,6 @@ import logging
 import datetime
 from discord.ext import commands
 from discord.ext.commands import has_permissions
-from users.models import *
 from events.models import *
 from utils.lib import *
 from django.conf import settings

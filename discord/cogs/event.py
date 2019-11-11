@@ -83,9 +83,14 @@ class EventCog(commands.Cog):
 					await ctx.send(embed=self.failed_custom_event(ctx))
 			# For a custom event
 			elif len(arg_list) == 4:
+				title = arg_list[0]
+				location = arg_list[1]
+				time = arg_list[2]
+				info = arg_list[3]
 				try:
 					await channel.send(embed=self.custom_event(arg_list))
 					await(await channel.send("@everyone")).delete()
+					Event.objects.create(title=title, location=location, time=time, info=info)
 					await ctx.send(embed=self.successful_custom_event(ctx))
 				except:
 					await ctx.send(embed=self.failed_custom_event(ctx))

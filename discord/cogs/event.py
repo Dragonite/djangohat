@@ -78,6 +78,7 @@ class EventCog(commands.Cog):
 					await channel.send(embed=self.default_event())
 					await(await channel.send("@everyone")).delete()
 					Event.objects.create(time=self.get_next_default_meeting_time(datetime.datetime.now(), WEDNESDAY))
+					logger.warning("Event created by %s", ctx.message.author.display_name)
 					await ctx.send(embed=self.successful_custom_event(ctx))
 				except:
 					await ctx.send(embed=self.failed_custom_event(ctx))
@@ -91,6 +92,7 @@ class EventCog(commands.Cog):
 					await channel.send(embed=self.custom_event(arg_list))
 					await(await channel.send("@everyone")).delete()
 					Event.objects.create(title=title, location=location, time=time, info=info)
+					logger.warning("Event created by %s", ctx.message.author.display_name)
 					await ctx.send(embed=self.successful_custom_event(ctx))
 				except:
 					await ctx.send(embed=self.failed_custom_event(ctx))

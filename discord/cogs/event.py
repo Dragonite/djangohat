@@ -31,6 +31,7 @@ class EventCog(commands.Cog):
 		next_date_string = (d + datetime.timedelta(days_ahead)).strftime("%A %-d %B at 3PM")
 		return next_date_string
 
+	# Creates a default event with next Wednesday 3PM as the time, and the default Event model constants.
 	def default_event(self):
 		embed = discord.Embed(title=Event.DEFAULT_TITLE, color=COLOR_INFO, timestamp=datetime.datetime.now())
 		embed.add_field(name="Location", value=Event.DEFAULT_LOCATION, inline=False)
@@ -52,6 +53,18 @@ class EventCog(commands.Cog):
 		embed.set_footer(text="{} {}".format(CLUB_NAME, CURRENT_YEAR), icon_url=self.bot.user.avatar_url)
 		return embed
 
+	# Creates a custom event with the user's avatar and name when successful.
+	def successful_custom_event(self, ctx):
+		embed = discord.Embed(title="Event successfully created!", color=COLOR_SUCCESS, timestamp=datetime.datetime.now())
+		embed.set_footer(text="Created by {}".format(ctx.message.author.display_name), icon_url=ctx.message.author.avatar_url)
+		return embed
+
+	# Creates a custom event with the user's avatar and name when successful.
+	def failed_custom_event(self, ctx):
+		embed = discord.Embed(title="Event creation failed!", color=COLOR_DANGER, timestamp=datetime.datetime.now())
+		embed.set_footer(text="Attempted by {}".format(ctx.message.author.display_name), icon_url=ctx.message.author.avatar_url)
+		return embed
+
 	@commands.command()
 	@has_permissions(administrator=True)
 	async def event(self, ctx, *, arg=None):
@@ -61,24 +74,24 @@ class EventCog(commands.Cog):
 			# For !event default command, posts the default event
 			if len(arg_list) == 1 and arg == 'default':
 				arg_list[0]
-				await ctx.send(embed=self.default_event())
+				try:
+					await channel.send(embed=self.default_event())
+					await(await channel.send("@everyone")).delete()
+					await ctx.send(embed=self.successful_custom_event(ctx))
+				except:
+					await ctx.send(embed=self.failed_custom_event(ctx))
 			# For a custom event
 			elif len(arg_list) == 4:
 				try:
 					await channel.send(embed=self.custom_event(arg_list))
 					await(await channel.send("@everyone")).delete()
-					await ctx.send("successful event creation")
+					await ctx.send(embed=self.successful_custom_event(ctx))
 				except:
-					await ctx.send("event could not be created")
+					await ctx.send(embed=self.failed_custom_event(ctx))
 			else:
 				await ctx.send(embed=self.event_help())
 		else:
 			await ctx.send(embed=self.event_help())
-
-		# print(DEFAULT_LOCATION)
-		# print(arg)
-		# print(self.get_next_default_meeting_time(datetime.datetime.now(), WEDNESDAY))
 						
-
 def setup(bot):
 	bot.add_cog(EventCog(bot))

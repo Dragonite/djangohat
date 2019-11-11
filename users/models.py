@@ -5,6 +5,11 @@ import uuid
 htb_url_base = 'https://www.hackthebox.eu/profile/'
 
 class Users(models.Model):
+
+    class Meta:
+        verbose_name = 'Profile'
+        verbose_name_plural = 'Profiles'
+
     user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
     discord_id = models.CharField(primary_key=True, max_length=255)
     full_name = models.CharField(max_length=255)

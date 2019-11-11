@@ -1,9 +1,19 @@
 from django.db import models
+from django.utils import timezone
 
 # Event Model
 
 class Event(models.Model):
-    title = models.CharField(max_length=100, default="Ethical Hacking Meeting - Weekly Meetup")
-    location = models.CharField(max_length=100, default="G01 at CSSE")
-    time = models.DateTimeField()
-    info = models.TextField(default="Bring your laptops!")
+
+	DEFAULT_TITLE = "Ethical Hacking Meeting - Weekly Meetup"
+	DEFAULT_LOCATION = "G01 at CSSE"
+	DEFAULT_INFO = "Bring your laptops"
+
+	title = models.CharField(max_length=100, default=DEFAULT_TITLE)
+	location = models.CharField(max_length=100, default=DEFAULT_LOCATION)
+	time = models.CharField(max_length=100)
+	info = models.TextField(default=DEFAULT_INFO)
+	date_created = models.DateTimeField(default=timezone.now)
+
+	def __str__(self):
+		return self.time

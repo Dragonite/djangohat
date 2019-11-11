@@ -77,6 +77,7 @@ class EventCog(commands.Cog):
 				try:
 					await channel.send(embed=self.default_event())
 					await(await channel.send("@everyone")).delete()
+					Event.objects.create(time=self.get_next_default_meeting_time(datetime.datetime.now(), WEDNESDAY))
 					await ctx.send(embed=self.successful_custom_event(ctx))
 				except:
 					await ctx.send(embed=self.failed_custom_event(ctx))

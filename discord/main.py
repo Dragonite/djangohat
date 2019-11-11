@@ -17,7 +17,7 @@ django.setup()
 
 bot = commands.Bot(command_prefix=settings.DISCORD_BOT_PREFIX)
 
-logging.basicConfig(filename='discord/logs/whitehat-{}.log'.format(datetime.today().strftime('%Y-%m-%d')), filemode='w', format='%(asctime)s - %(message)s',
+logging.basicConfig(filename='discord/logs/whitehat.log'.format(datetime.today().strftime('%Y-%m-%d')), format='%(asctime)s - %(message)s',
                     datefmt='%d-%b-%y %H:%M:%S')
 
 

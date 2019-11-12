@@ -69,7 +69,6 @@ class EventCog(commands.Cog):
 			channel = self.bot.get_channel(settings.EVENT_CHANNEL)
 			# For !event default command, posts the default event
 			if len(arg_list) == 1 and arg == 'default':
-				arg_list[0]
 				try:
 					await channel.send(embed=self.default_event())
 					await(await channel.send("@everyone")).delete()

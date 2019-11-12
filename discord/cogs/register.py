@@ -86,12 +86,8 @@ class RegisterCog(commands.Cog):
                     await ctx.send(embed=self.existing_profile(ctx))
             else:
                 await ctx.send(embed=self.profile_help(ctx))
-
-            # elif len(arg_list) == 3:
-            # elif len(arg_list) == 4:
-            # else:
         else:
-            await ctx.send("no arg")
+            await ctx.send(embed=self.profile_help(ctx))
 
 def setup(bot):
     bot.add_cog(RegisterCog(bot))

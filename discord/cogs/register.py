@@ -12,11 +12,22 @@ class RegisterCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    # Successful profile creation embed
+    def successful_profile(self, ctx):
+        embed = discord.Embed(title="Profile successfully created!", description="View your profile using `!profile`.",color=COLOR_SUCCESS, timestamp=datetime.datetime.now())
+        embed.set_footer(text="{} {}".format(CLUB_NAME, CURRENT_YEAR), icon_url=self.bot.user.avatar_url)
+        return embed
+
+    # Profile already exists
+    def existing_profile(self, ctx):
+        embed = discord.Embed(title="Profile already exists!", description="View your profile using `!profile`.",color=COLOR_INFO, timestamp=datetime.datetime.now())
+        embed.set_footer(text="{} {}".format(CLUB_NAME, CURRENT_YEAR), icon_url=self.bot.user.avatar_url)
+        return embed
+
     @commands.command()
     async def register(self, ctx, *, arg=None):
         if arg:
             arg_list = arg.split('\n')
-            print(arg_list)
             # Name
             # Role
             # Link
@@ -31,15 +42,13 @@ class RegisterCog(commands.Cog):
                     profile.full_name = name
                     profile.discord_tag = "{}#{}".format(ctx.message.author.name, ctx.message.author.discriminator)
                     profile.save()
-                    # Profile created embed
+                    await ctx.send(embed=self.successful_profile(ctx))
+                    # Log newly created profile
                 else:
-                    # Profile already exists
-                    await ctx.send("Users created")
+                    await ctx.send(embed=self.existing_profile(ctx))
             # elif len(arg_list) == 3:
             # elif len(arg_list) == 4:
             # else:
-
-            await ctx.send("arg")
         else:
             await ctx.send("no arg")
 

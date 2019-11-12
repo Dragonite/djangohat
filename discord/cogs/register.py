@@ -12,6 +12,12 @@ class RegisterCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    # Creates the default Profile embed
+    def profile_help(self, ctx):
+        embed = discord.Embed(title="Register your Profile", description="Create a Profile to identify yourself to other members using the following syntax:\n\n_* indicates an optional argument_\n```!register\n<name> i.e. Tom Smith\n<description> i.e. Software Developer\n<link> * i.e. https://www.github.com/TomSmith\n<htb> * Hack The Box User ID```",color=COLOR_INFO, timestamp=datetime.datetime.now())
+        embed.set_footer(text="{} {}".format(CLUB_NAME, CURRENT_YEAR), icon_url=self.bot.user.avatar_url)
+        return embed
+
     # Successful profile creation embed
     def successful_profile(self, ctx):
         embed = discord.Embed(title="Profile successfully created!", description="View your profile using `!profile`.",color=COLOR_SUCCESS, timestamp=datetime.datetime.now())
@@ -46,6 +52,41 @@ class RegisterCog(commands.Cog):
                     # Log newly created profile
                 else:
                     await ctx.send(embed=self.existing_profile(ctx))
+            elif len(arg_list) == 3:
+                name, role, link = arg_list
+                profile, created = Users.objects.get_or_create(discord_id=ctx.message.author.id)
+                if created:
+                    profile.description = role
+                    profile.full_name = name
+                    profile.link = link
+                    profile.discord_tag = "{}#{}".format(ctx.message.author.name, ctx.message.author.discriminator)
+                    profile.save()
+                    await ctx.send(embed=self.successful_profile(ctx))
+                    # Log newly created profile
+                else:
+                    profile.link = link
+                    profile.save()
+                    await ctx.send(embed=self.existing_profile(ctx))
+            elif len(arg_list) == 4:
+                name, role, link, htb = arg_list
+                profile, created = Users.objects.get_or_create(discord_id=ctx.message.author.id)
+                if created:
+                    profile.description = role
+                    profile.full_name = name
+                    profile.link = link
+                    profile.htb = htb
+                    profile.discord_tag = "{}#{}".format(ctx.message.author.name, ctx.message.author.discriminator)
+                    profile.save()
+                    await ctx.send(embed=self.successful_profile(ctx))
+                    # Log newly created profile
+                else:
+                    profile.link = link
+                    profile.htb = htb
+                    profile.save()
+                    await ctx.send(embed=self.existing_profile(ctx))
+            else:
+                await ctx.send(embed=self.profile_help(ctx))
+
             # elif len(arg_list) == 3:
             # elif len(arg_list) == 4:
             # else:

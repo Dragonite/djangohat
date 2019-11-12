@@ -29,7 +29,7 @@ async def on_ready():
     await bot.change_presence(activity=activity)
     logging.warning("Bot started")
     print("Bot connected!")
-    
+
 
 @bot.event
 async def on_raw_reaction_add(payload):
@@ -41,6 +41,14 @@ async def on_raw_reaction_add(payload):
 			role = get(guild.roles, name="Hack The Box")
 			await member.add_roles(role)
 			await member.send(embed=successful_role_assigned(bot, "Hack The Box"))
+		if payload.emoji.id == settings.EMOJI_HELPER:
+			role = get(guild.roles, name="General Help")
+			await member.add_roles(role)
+			await member.send(embed=successful_role_assigned(bot, "Helper"))
+		if payload.emoji.id == settings.EMOJI_LINUX:
+			role = get(guild.roles, name="Linux")
+			await member.add_roles(role)
+			await member.send(embed=successful_role_assigned(bot, "Linux"))
 
 
 initial_extensions = ['cogs.link', 'cogs.event']

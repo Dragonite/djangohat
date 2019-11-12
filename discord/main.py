@@ -6,6 +6,8 @@ from datetime import datetime
 import django
 from discord.ext import commands
 from django.conf import settings
+from discord.utils import get
+from utils.embeds import *
 
 import discord
 
@@ -27,6 +29,18 @@ async def on_ready():
     await bot.change_presence(activity=activity)
     logging.warning("Bot started")
     print("Bot connected!")
+    
+
+@bot.event
+async def on_raw_reaction_add(payload):
+	guild = bot.get_guild(settings.GUILD_ID)
+	member = guild.get_member(payload.user_id)
+	# Welcome reaction role assignment
+	if payload.message_id == settings.WELCOME_MESSAGE and payload.channel_id == settings.WELCOME_CHANNEL:
+		if payload.emoji.id == settings.EMOJI_HTB:
+			role = get(guild.roles, name="Hack The Box")
+			await member.add_roles(role)
+			await member.send(embed=successful_role_assigned(bot, "Hack The Box"))
 
 
 initial_extensions = ['cogs.link', 'cogs.event']

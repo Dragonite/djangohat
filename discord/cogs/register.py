@@ -34,12 +34,7 @@ class RegisterCog(commands.Cog):
     async def register(self, ctx, *, arg=None):
         if arg:
             arg_list = arg.split('\n')
-            # Name
-            # Role
-            # Link
-            # HackTheBox
-
-            # Bare minimum is name role and link, optional hackthebox url.
+            # Required arguments, full name and description
             if len(arg_list) == 2:
                 name, role = arg_list
                 profile, created = Users.objects.get_or_create(discord_id=ctx.message.author.id)
@@ -49,9 +44,10 @@ class RegisterCog(commands.Cog):
                     profile.discord_tag = "{}#{}".format(ctx.message.author.name, ctx.message.author.discriminator)
                     profile.save()
                     await ctx.send(embed=self.successful_profile(ctx))
-                    # Log newly created profile
+                    logger.warning("Profile created for %s", profile.discord_tag)
                 else:
                     await ctx.send(embed=self.existing_profile(ctx))
+            # Additional optional argument "Link"
             elif len(arg_list) == 3:
                 name, role, link = arg_list
                 profile, created = Users.objects.get_or_create(discord_id=ctx.message.author.id)
@@ -62,11 +58,12 @@ class RegisterCog(commands.Cog):
                     profile.discord_tag = "{}#{}".format(ctx.message.author.name, ctx.message.author.discriminator)
                     profile.save()
                     await ctx.send(embed=self.successful_profile(ctx))
-                    # Log newly created profile
+                    logger.warning("Profile created for %s", profile.discord_tag)
                 else:
                     profile.link = link
                     profile.save()
                     await ctx.send(embed=self.existing_profile(ctx))
+            # Additional optional argument "Hack The Box ID"
             elif len(arg_list) == 4:
                 name, role, link, htb = arg_list
                 profile, created = Users.objects.get_or_create(discord_id=ctx.message.author.id)
@@ -78,7 +75,7 @@ class RegisterCog(commands.Cog):
                     profile.discord_tag = "{}#{}".format(ctx.message.author.name, ctx.message.author.discriminator)
                     profile.save()
                     await ctx.send(embed=self.successful_profile(ctx))
-                    # Log newly created profile
+                    logger.warning("Profile created for %s", profile.discord_tag)
                 else:
                     profile.link = link
                     profile.htb = htb

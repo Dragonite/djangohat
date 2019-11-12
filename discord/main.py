@@ -51,6 +51,27 @@ async def on_raw_reaction_add(payload):
 			await member.send(embed=successful_role_assigned(bot, "Linux"))
 
 
+@bot.event
+async def on_raw_reaction_remove(payload):
+	guild = bot.get_guild(settings.GUILD_ID)
+	member = guild.get_member(payload.user_id)
+	# Welcome reaction role removal
+	if payload.message_id == settings.WELCOME_MESSAGE and payload.channel_id == settings.WELCOME_CHANNEL:
+		if payload.emoji.id == settings.EMOJI_HTB:
+			role = get(guild.roles, name="Hack The Box")
+			await member.remove_roles(role)
+			await member.send(embed=successful_role_removed(bot, "Hack The Box"))
+		if payload.emoji.id == settings.EMOJI_HELPER:
+			role = get(guild.roles, name="General Help")
+			await member.remove_roles(role)
+			await member.send(embed=successful_role_removed(bot, "Helper"))
+		if payload.emoji.id == settings.EMOJI_LINUX:
+			role = get(guild.roles, name="Linux")
+			await member.remove_roles(role)
+			await member.send(embed=successful_role_removed(bot, "Linux"))
+
+
+
 initial_extensions = ['cogs.link', 'cogs.event']
 
 if __name__ == '__main__':

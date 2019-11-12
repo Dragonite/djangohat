@@ -77,7 +77,7 @@ async def on_raw_reaction_remove(payload):
 			await member.send(embed=successful_role_removed(bot, "Linux"))
 
 
-initial_extensions = ['cogs.link', 'cogs.event']
+initial_extensions = ['cogs.link', 'cogs.event', 'cogs.register']
 
 if __name__ == '__main__':
     for extension in initial_extensions:

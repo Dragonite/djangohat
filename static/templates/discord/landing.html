@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+  Bot Management
+{% endblock %}
+
+{% block page_header %}
+  Bot Management
+{% endblock %}
+
+{% block body %}
+  <link rel="stylesheet" href="/static/css/buttons.css">
+  <div class="item-background">
+    <div class="action-list-container" style="margin: 0 auto">
+      <div class="action-list theme-form">
+        <div class="action-container">
+          <a class="action-link" href="#">
+            <div class="action-card" id="action-users">
+              <p class="action-title">Users</p>
+            </div>
+          </a>
+        </div>
+        <div class="action-container">
+          <a class="action-link" href="#">
+            <div class="action-card" id="action-events">
+              <p class="action-title">Events</p>
+            </div>
+          </a>
+        </div>
+        <div class="action-container">
+          <a class="action-link" href="#">
+            <div class="action-card" id="action-log">
+              <p class="action-title">Logging</p>
+            </div>
+          </a>
+        </div>
+        <div class="action-container">
+          <a class="action-link" href="#">
+            <div class="action-card" id="action-commands">
+              <p class="action-title">Commands</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+{#  <div class="text-center">#}
+{#    <iframe src="https://discordapp.com/widget?id=594900376508039169" width="350" height="500"#}
+{#            allowtransparency="true" frameborder="0"></iframe>#}
+{#  </div>#}
+{#  <div class="item-background mb-3">#}
+{#    <pre><code style="color: inherit">{{ log }}</code></pre>#}
+{#  </div>#}
+{% endblock %}

@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 import uuid
 
-htb_url_base = 'https://www.hackthebox.eu/profile/'
+htb_url_base = 'https://www.hackthebox.eu/badge/image/'
 
 class Users(models.Model):
 
@@ -10,7 +10,7 @@ class Users(models.Model):
         verbose_name = 'Profile'
         verbose_name_plural = 'Profiles'
 
-    user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
+    user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True, blank=True)
     discord_id = models.CharField(primary_key=True, max_length=255)
     full_name = models.CharField(max_length=255)
     link = models.CharField(max_length=255, blank=True, null=True)

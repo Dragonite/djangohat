@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views.generic.base import TemplateView
 from events.views import index as event_index
+from discord.django.views import bot_landing
 
 urlpatterns = [
     path('events/', include('events.urls')),
@@ -24,5 +25,6 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
     path('', event_index, name='home'),
+    path('bot-management/', include('discord.django.urls')),
     path('about/', TemplateView.as_view(template_name='about.html'), name='about')
 ]

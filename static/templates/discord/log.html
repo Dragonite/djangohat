@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+  Bot Log
+{% endblock %}
+
+{% block page_header %}
+  Bot Log
+  <a href="{% url "bot-management:bot_landing" %}" class="btn btn-primary float-right" style="color: #FFF">
+    Back
+  </a>
+{% endblock %}
+
+{% block body %}
+{#  <div class="text-center">#}
+{#    <iframe src="https://discordapp.com/widget?id=594900376508039169" width="350" height="500"#}
+{#            allowtransparency="true" frameborder="0"></iframe>#}
+{#  </div>#}
+  <div class="item-background mb-3">
+    <pre><code style="color: inherit">{{ log }}</code></pre>
+  </div>
+{% endblock %}

@@ -7,7 +7,7 @@
   <a href="https://discord.gg/NBqqAqp"><i class="fab fa-fw fa-discord"></i> Discord</a>
   {% if user.is_authenticated %}
     {% if user.is_staff %}
-      <a href="{% url 'users:users_index' %}"><i class="fa fa-fw fa-users"></i> Users</a>
+      <a href="{% url 'bot-management:bot_landing' %}"><i class="fa fa-fw fa-robot"></i> Bot Management</a>
     {% endif %}
     {% if user.is_superuser %}
       <a href="{% url 'admin:index' %}"><i class="fa fa-fw fa-database"></i> Django Admin</a>

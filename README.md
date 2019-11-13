@@ -1,11 +1,42 @@
-# Djangohat  &middot; [![Django 2.2.4](https://img.shields.io/badge/Django-2.2.4-brightgreen)](https://docs.djangoproject.com/en/2.2/releases/2.2.4/) [![Python 3.7.2](https://img.shields.io/badge/python-3.7.2-blue.svg)](https://www.python.org/downloads/release/python-372/) [![Discord](https://img.shields.io/badge/join-discord-7289da.svg)](https://discord.gg/NBqqAqp)
+<h1 align="center">Djangohat</h1>
 
-Djangohat is a Python rewrite of [Whitehat](https://github.com/Dragonite/whitehat) offering additional Webhook functionality.
+<div align="center">
+  <strong><i>A club management website with a built in Discord bot.</i></strong>
+  <br>
+  <br>
+
+
+  <a href="https://docs.djangoproject.com/en/2.2/releases/2.2.4/">
+    <img src="https://img.shields.io/badge/django-2.2.4-brightgreen?style=for-the-badge&colorB=06D6A0" alt="Django" />
+  </a>
+  
+  <a href="https://www.python.org/downloads/release/python-372/">
+    <img src="https://img.shields.io/badge/Python-3.7-brightgreen?style=for-the-badge&colorB=F489A3" alt="Python" />
+  </a>
+
+  <a href="https://discord.gg/NBqqAqp">
+    <img src="https://img.shields.io/badge/discord-Join-brightgreen?style=for-the-badge&colorB=7289DA" alt="Discord" />
+  </a>
+
+  <a href="https://github.com/Dragonite/djangohat/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/dragonite/djangohat.svg?style=for-the-badge&colorB=61829F" alt="LICENSE" />
+  </a>
+</div>
+<br>
+
+<div align="center">
+  This application integrates <strong>Django</strong> with <strong>dhooks</strong> and <strong>discord.py</strong> to create a seamless club managing experience. This project was originally created for <strong>The University of Western Australia Ethical Hacking Club</strong>.
+</div>
+
+## Installation
+
+```
+$ pip3 install -r requirements.txt
+$ python3 manage.py migrate
+$ python3 manage.py runserver
+$ python3 discord/main.py
+```
 
 ## Libraries
-- [Discord Webhooks](https://github.com/kyb3r/dhooks)
+- [dhooks](https://github.com/kyb3r/dhooks)
 - [discord.py](https://github.com/Rapptz/discord.py)
-
-## License
-
-This project is licensed under the [MIT License](https://github.com/Dragonite/djangohat/blob/master/LICENSE).

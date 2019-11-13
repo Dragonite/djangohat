@@ -12,3 +12,9 @@ def bot_landing(request):
     contents = Path('discord/logs/whitehat.log').read_text()
     c = {}
     return render(request, "discord/landing.html", c)
+
+@staff_member_required()
+def bot_log(request):
+    contents = Path('discord/logs/whitehat.log').read_text()
+    c = {'log': contents}
+    return render(request, "discord/log.html", c)

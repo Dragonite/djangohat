@@ -66,6 +66,8 @@ class ProfileCog(commands.Cog):
                     if profile:
                         if c == 'delete':
                             if ctx.message.author.guild_permissions.administrator:
+                                logger.warning("{} profile deleted by {}".format(profile.discord_tag,
+                                                                                 ctx.message.author.display_name))
                                 profile.delete()
                                 await ctx.send(embed=self.successful_deleted_profile(ctx))
                             else:
@@ -82,6 +84,8 @@ class ProfileCog(commands.Cog):
                 if profile:
                     if c == 'delete':
                         if ctx.message.author.guild_permissions.administrator:
+                            logger.warning(
+                                "{} profile deleted by {}".format(profile.discord_tag, ctx.message.author.display_name))
                             profile.delete()
                             await ctx.send(embed=self.successful_deleted_profile(ctx))
                         else:

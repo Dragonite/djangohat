@@ -7,31 +7,70 @@
 
 {% block page_header %}
   Registered Users
+  <a href="{% url "bot-management:bot_landing" %}" class="btn btn-primary float-right" style="color: #FFF">
+    Back
+  </a>
 {% endblock %}
 
 {% block body %}
-  <table class="table table-bordered" style="text-align: center">
-    <thead class="thead-light">
-    <tr>
-      <th scope="col">Discord Tag</th>
-      <th scope="col">Name</th>
-      <th scope="col">Description</th>
-      <th scope="col">HackTheBox</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for user in users %}
-      <tr>
-        <th scope="row">{{ user.discord_tag }}</th>
-        <td>{{ user.full_name }}</td>
-        <td>{{ user.description }}</td>
-        {% if user.get_htb_url %}
-          <td><a href="{{ user.get_htb_url }}">Link to Profile</a></td>
-        {% else %}
-          <td></td>
-        {% endif %}
-      </tr>
+  <div class="alert alert-info">
+    All currently registered <strong>Profiles</strong> using <strong>Whitehat's !register</strong> command. are
+    displayed here.
+  </div>
+  <!-- Trigger Discord User Modal -->
+  <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#userModal">
+    Show Online Users
+  </button>
+
+  <!-- Discord User Modal -->
+  <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <iframe src="https://discordapp.com/widget?id=594900376508039169" height="600"
+                allowtransparency="true" frameborder="0"></iframe>
+      </div>
+    </div>
+  </div>
+  <div class="item-background"
+       style="display: flex; flex-wrap: wrap; justify-content: space-between; padding-bottom: 20px">
+    {% for profile in profiles %}
+      <a style="min-width: 49%; margin: 0 auto 10px auto" data-toggle="modal"
+         data-target="#userModal_{{ profile.discord_id }}">
+        <div class="card">
+          <div class="card-body" style="text-align: center">
+            <img src="{{ profile.discord_avatar }}" alt="discord_avatar_{{ profile.discord_id }}" height="50"
+                 width="50">
+            <br>
+            <div class="mt-1">
+              {{ profile.discord_tag }}
+            </div>
+            <strong>{{ profile.full_name }}</strong>
+            <br>
+
+          </div>
+        </div>
+      </a>
+      <div class="modal fade" id="userModal_{{ profile.discord_id }}" tabindex="-1" role="dialog"
+           aria-labelledby="userModal_{{ profile.discord_id }}_Label"
+           aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">User Information</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              {{ profile.full_name }}<br>
+              {{ profile.link }}<br>
+              {{ profile.description }}
+            </div>
+          </div>
+        </div>
+      </div>
+
     {% endfor %}
-    </tbody>
-  </table>
+  </div>
 {% endblock %}

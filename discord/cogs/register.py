@@ -42,6 +42,7 @@ class RegisterCog(commands.Cog):
                     profile.description = role
                     profile.full_name = name
                     profile.discord_tag = "{}#{}".format(ctx.message.author.name, ctx.message.author.discriminator)
+                    profile.discord_avatar = ctx.message.author.avatar_url
                     profile.save()
                     await ctx.send(embed=self.successful_profile(ctx))
                     logger.warning("Profile created for %s", profile.discord_tag)
@@ -56,6 +57,7 @@ class RegisterCog(commands.Cog):
                     profile.full_name = name
                     profile.link = link
                     profile.discord_tag = "{}#{}".format(ctx.message.author.name, ctx.message.author.discriminator)
+                    profile.discord_avatar = ctx.message.author.avatar_url
                     profile.save()
                     await ctx.send(embed=self.successful_profile(ctx))
                     logger.warning("Profile created for %s", profile.discord_tag)
@@ -73,6 +75,7 @@ class RegisterCog(commands.Cog):
                     profile.link = link
                     profile.htb = htb
                     profile.discord_tag = "{}#{}".format(ctx.message.author.name, ctx.message.author.discriminator)
+                    profile.discord_avatar = ctx.message.author.avatar_url
                     profile.save()
                     await ctx.send(embed=self.successful_profile(ctx))
                     logger.warning("Profile created for %s", profile.discord_tag)

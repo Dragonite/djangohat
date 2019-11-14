@@ -15,7 +15,7 @@
     <div class="action-list-container" style="margin: 0 auto">
       <div class="action-list theme-form">
         <div class="action-container">
-          <a class="action-link" href="#">
+          <a class="action-link" href="{% url 'users:users_index' %}">
             <div class="action-card" id="action-users">
               <p class="action-title">Users</p>
             </div>
@@ -45,11 +45,4 @@
       </div>
     </div>
   </div>
-{#  <div class="text-center">#}
-{#    <iframe src="https://discordapp.com/widget?id=594900376508039169" width="350" height="500"#}
-{#            allowtransparency="true" frameborder="0"></iframe>#}
-{#  </div>#}
-{#  <div class="item-background mb-3">#}
-{#    <pre><code style="color: inherit">{{ log }}</code></pre>#}
-{#  </div>#}
 {% endblock %}

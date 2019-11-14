@@ -8,8 +8,8 @@ from django.http import HttpResponse
 
 @staff_member_required()
 def index(request):
-    users = Users.objects.all()
-    c = {'users': users }
+    profiles = Users.objects.all()
+    c = {'profiles': profiles }
     return render(request, "user_index.html", c)
 
 

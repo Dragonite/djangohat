@@ -48,7 +48,6 @@ class ProfileCog(commands.Cog):
                     try:
                         query = int(query)
                         profile = Users.objects.filter(discord_id=query).first()
-                        print(profile)
                         if profile:
                             await ctx.send(embed=self.existing_profile(ctx, profile))
                         else:
@@ -57,15 +56,11 @@ class ProfileCog(commands.Cog):
                         await ctx.send(embed=self.other_missing_profile(ctx))
                 # Search by tag contents
                 else:
-                    query = args[0]
-                    Users.objects.filter(discord_tag__contains=query)
-
-                # Searches by tag
-
-                print(query)
-            # Handle searches, should regex for an @, their tag and their discord ID.
-            for arg in args:
-                await ctx.send(arg)
+                    profile = Users.objects.filter(discord_tag__icontains=arg_first).first()
+                    if profile:
+                        await ctx.send(embed=self.existing_profile(ctx, profile))
+                    else:
+                        await ctx.send(embed=self.other_missing_profile(ctx))
         else:
             try:
                 profile = Users.objects.get(discord_id=ctx.message.author.id)

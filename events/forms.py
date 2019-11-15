@@ -7,7 +7,7 @@ from .models import Event
 class CreateEventForm(ModelForm):
     class Meta:
         model = Event
-        fields = '__all__'
+        fields = 'title', 'location', 'time', 'info'
 
     def __init__(self, *args, **kwargs):
         super(CreateEventForm, self).__init__(*args, **kwargs)

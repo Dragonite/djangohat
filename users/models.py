@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 import uuid
 
 htb_url_base = 'https://www.hackthebox.eu/badge/image/'
+htb_profile_base = 'https://www.hackthebox.eu/profile/'
 
 class Users(models.Model):
 
@@ -27,5 +28,11 @@ class Users(models.Model):
     def get_htb_url(self):
         if self.htb:
             return htb_url_base + str(self.htb)
+        else:
+            return None
+
+    def get_htb_profile(self):
+        if self.htb:
+            return htb_profile_base + str(self.htb)
         else:
             return None

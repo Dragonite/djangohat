@@ -40,7 +40,7 @@
         <div class="card">
           <div class="card-body" style="text-align: center">
             <img src="{{ profile.discord_avatar }}" alt="discord_avatar_{{ profile.discord_id }}" height="50"
-                 width="50">
+                 width="50" style="border-radius: 50%">
             <br>
             <div class="mt-1">
               {{ profile.discord_tag }}
@@ -56,16 +56,21 @@
            aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">User Information</h5>
+            <div class="modal-body" style="text-align: center">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
-            </div>
-            <div class="modal-body">
-              {{ profile.full_name }}<br>
-              {{ profile.link }}<br>
-              {{ profile.description }}
+              <img src="{{ profile.discord_avatar }}" alt="discord_avatar_{{ profile.discord_id }}" height="50"
+                   width="50" style="border-radius: 50%"><br>
+              <div class="mt-1">
+                <strong>Full Name:</strong> {{ profile.full_name }}<br>
+                <strong>Discord Tag:</strong> {{ profile.discord_tag }}<br>
+                <strong>Description:</strong> {{ profile.description }}<br>
+                <strong>Link:</strong> <a href="{{ profile.link }}">{{ profile.link }}</a><br>
+                {% if profile.htb %}
+                  <a href="{{ profile.get_htb_profile }}"><img class="mt-2" src="{{ profile.get_htb_url }}" alt="htb_{{ profile.discord_id }}"></a>
+                {% endif %}
+              </div>
             </div>
           </div>
         </div>

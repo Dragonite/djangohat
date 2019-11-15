@@ -11,4 +11,5 @@
 venv/
 *.sql
 *settings_prod.py
+*settings_dev.py
 *.log

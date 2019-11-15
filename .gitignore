@@ -10,6 +10,7 @@
 *.DS_Store
 venv/
 *.sql
+*settings.py
 *settings_prod.py
 *settings_dev.py
 *.log
